@@ -34,33 +34,7 @@ class _HomePageState extends State<HomePage> {
   double? bmi;
   String resultText = "";
 
-  void calculateBMI() {
-    final double? height = double.tryParse(heightController.text);
-    final double? weight = double.tryParse(weightController.text);
 
-    if (height != null && weight != null && height > 0) {
-      final double heightInMeter = height / 100;
-      final double bmiValue = weight / (heightInMeter * heightInMeter);
-
-      setState(() {
-        bmi = bmiValue;
-        if (bmiValue < 18.5) {
-          resultText = "Underweight 😟";
-        } else if (bmiValue >= 18.5 && bmiValue < 25) {
-          resultText = "Normal 🙂";
-        } else if (bmiValue >= 25 && bmiValue < 30) {
-          resultText = "Overweight 😐";
-        } else {
-          resultText = "Obese 😟";
-        }
-      });
-    } else {
-      setState(() {
-        resultText = "⚠ Please enter valid height & weight";
-        bmi = null;
-      });
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -144,7 +118,7 @@ class _HomePageState extends State<HomePage> {
                   child: Column(
                     children: [
                       Text(
-                        "Your BMI: ${bmi!.toStringAsFixed(2)}",
+                        "Your BMI : ${bmi!.toStringAsFixed(2)}",
                         style: const TextStyle(
                             fontSize: 22,
                             fontWeight: FontWeight.bold,
@@ -169,5 +143,33 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
     );
+  }
+
+  void calculateBMI() {
+    final double? height = double.tryParse(heightController.text);
+    final double? weight = double.tryParse(weightController.text);
+
+    if (height != null && weight != null && height > 0) {
+      final double heightInMeter = height / 100;
+      final double bmiValue = weight / (heightInMeter * heightInMeter);
+
+      setState(() {
+        bmi = bmiValue;
+        if (bmiValue < 18.5) {
+          resultText = "Underweight 😟";
+        } else if (bmiValue >= 18.5 && bmiValue < 25) {
+          resultText = "Normal 🙂";
+        } else if (bmiValue >= 25 && bmiValue < 30) {
+          resultText = "Overweight 😐";
+        } else {
+          resultText = "Obese 😟";
+        }
+      });
+    } else {
+      setState(() {
+        resultText = "⚠ Please enter valid height & weight";
+        bmi = null;
+      });
+    }
   }
 }
